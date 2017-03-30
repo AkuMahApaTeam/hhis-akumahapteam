@@ -1,106 +1,106 @@
 /*==============================================================*/
-/* DBMS name:      MySQL 5.0                                    */
-/* Created on:     3/29/2017 4:04:43 PM                         */
+/* dbms name:      mysql 5.0                                    */
+/* created on:     3/29/2017 4:04:43 pm                         */
 /*==============================================================*/
 
 
-drop table if exists ADMINISTRATOR;
+drop table if exists administrator;
 
-drop table if exists DOKTER;
+drop table if exists dokter;
 
-drop table if exists NO_IZIN_DOKTER;
+drop table if exists no_izin_dokter;
 
-drop table if exists PASIEN;
+drop table if exists pasien;
 
-drop table if exists RIWAYAT;
+drop table if exists riwayat;
 
-drop table if exists USER;
+drop table if exists user;
 
 /*==============================================================*/
-/* Table: ADMINISTRATOR                                         */
+/* table: administrator                                         */
 /*==============================================================*/
-create table ADMINISTRATOR
+create table administrator
 (
-   USERNAME_ADMIN       varchar(255),
-   PASSWORD_ADMIN       varchar(255)
+   username_admin       varchar(255),
+   password_admin       varchar(255)
 );
 
 /*==============================================================*/
-/* Table: DOKTER                                                */
+/* table: dokter                                                */
 /*==============================================================*/
-create table DOKTER
+create table dokter
 (
-   ID_DOKTER            int not null,
-   NO_IZIN              varchar(25) not null,
-   EMAIL                varchar(50),
-   ALAMAT_RUMAH         varchar(255),
-   ALAMAT_PRAKTIK       varchar(255),
-   NAMA_DOKTER          varchar(255),
-   NO_TELP              varchar(15),
-   primary key (ID_DOKTER)
+   id_dokter            int not null,
+   no_izin              varchar(25) not null,
+   email                varchar(50),
+   alamat_rumah         varchar(255),
+   alamat_praktik       varchar(255),
+   nama_dokter          varchar(255),
+   no_telp              varchar(15),
+   primary key (id_dokter)
 );
 
 /*==============================================================*/
-/* Table: NO_IZIN_DOKTER                                        */
+/* table: no_izin_dokter                                        */
 /*==============================================================*/
-create table NO_IZIN_DOKTER
+create table no_izin_dokter
 (
-   NO_IZIN              varchar(25) not null,
-   KEAHLIAN             varchar(255),
-   primary key (NO_IZIN)
+   no_izin              varchar(25) not null,
+   keahlian             varchar(255),
+   primary key (no_izin)
 );
 
 /*==============================================================*/
-/* Table: PASIEN                                                */
+/* table: pasien                                                */
 /*==============================================================*/
-create table PASIEN
+create table pasien
 (
-   ID_PASIEN            int not null,
-   NAMA_PASIEN          varchar(255),
-   ALAMAT               varchar(255),
-   NO_TELP_PASIEN       varchar(15),
-   GOL_DARAH            varchar(2),
-   JENIS_KELAMIN        varchar(10),
-   primary key (ID_PASIEN)
+   id_pasien            int not null,
+   nama_pasien          varchar(255),
+   alamat               varchar(255),
+   no_telp_pasien       varchar(15),
+   gol_darah            varchar(2),
+   jenis_kelamin        varchar(10),
+   primary key (id_pasien)
 );
 
 /*==============================================================*/
-/* Table: RIWAYAT                                               */
+/* table: riwayat                                               */
 /*==============================================================*/
-create table RIWAYAT
+create table riwayat
 (
-   ID_PASIEN            int not null,
-   ID_DOKTER            int not null,
-   UMUR                 int,
-   BERAT_BADAN          int,
-   TINGGI_BADAN         int,
-   TURUNAN_PENYAKIT     text,
-   GEJALA               text,
-   DIAGNOSA             text,
-   LARANGAN             text,
-   NOTE                 text,
-   TGL_PERIKSA          date
+   id_pasien            int not null,
+   id_dokter            int not null,
+   umur                 int,
+   berat_badan          int,
+   tinggi_badan         int,
+   turunan_penyakit     text,
+   gejala               text,
+   diagnosa             text,
+   larangan             text,
+   note                 text,
+   tgl_periksa          date
 );
 
 /*==============================================================*/
-/* Table: USER                                                  */
+/* table: user                                                  */
 /*==============================================================*/
-create table USER
+create table user
 (
-   ID_DOKTER            int not null,
-   USERNAME_DOKTER      varchar(255),
-   PASSWORD_DOKTER      varchar(255)
+   id_dokter            int not null,
+   username_dokter      varchar(255),
+   password_dokter      varchar(255)
 );
 
-alter table DOKTER add constraint FK_RELASI_DOKTER foreign key (NO_IZIN)
-      references NO_IZIN_DOKTER (NO_IZIN) on delete restrict on update restrict;
+alter table dokter add constraint fk_relasi_dokter foreign key (no_izin)
+      references no_izin_dokter (no_izin) on delete restrict on update restrict;
 
-alter table RIWAYAT add constraint FK_DOKTER_RIWAYAT foreign key (ID_DOKTER)
-      references DOKTER (ID_DOKTER) on delete restrict on update restrict;
+alter table riwayat add constraint fk_dokter_riwayat foreign key (id_dokter)
+      references dokter (id_dokter) on delete restrict on update restrict;
 
-alter table RIWAYAT add constraint FK_PASIEN_RIWAYAT foreign key (ID_PASIEN)
-      references PASIEN (ID_PASIEN) on delete restrict on update restrict;
+alter table riwayat add constraint fk_pasien_riwayat foreign key (id_pasien)
+      references pasien (id_pasien) on delete restrict on update restrict;
 
-alter table USER add constraint FK_USER_DOKTER foreign key (ID_DOKTER)
-      references DOKTER (ID_DOKTER) on delete restrict on update restrict;
+alter table user add constraint fk_user_dokter foreign key (id_dokter)
+      references dokter (id_dokter) on delete restrict on update restrict;
 
